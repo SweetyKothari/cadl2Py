@@ -11,9 +11,10 @@ Add the following to your `cadl-project.yaml`:
 emitters:
   "cadl2Py": true
 ```
-## How to run on local without npm install
+## How to run on local :
 1. Run 
-``` npx tsc -p . ```
+``` npm install 
+    npx tsc -p . ```
    
 2.Run 
 ``` cadl compile sample/typescript.cadl ```
