@@ -32,13 +32,12 @@ import {
           if (m.namespace?.name === "Cadl") {
           }
           else{
-            var script="class "+m.name +"{"+"\n";
+            var script="class "+m.name +":"+"\n";
             m.properties.forEach(function (value) {
-                script+=value.name + ": "+getIntrinsicModelName(program,value.type)+"\n";
+                script+="\t"+value.name + ": "+getModelType(getIntrinsicModelName(program,value.type))+"\n";
                 console.log(getIntrinsicModelName(program,value.type))
             });
-            script+="}"
-            writeFile(path.join(apiPath, m.name+".python"), script);          
+            writeFile(path.join(apiPath, m.name+".python"), script);
         }
         }
     })
@@ -51,4 +50,25 @@ import {
        console.log('TODO Async')
     }
     }
+
+    function getModelType( name:String){
+       console.log(name)
+        switch (name) {
+            case "bytes":
+                return "byte"
+            case "int8":
+            case "int16":
+            case "int32":
+            case "int64":
+            case "safeint":
+            case "uint8":
+            case "uint16":
+            case "uint32":
+            case "uint64":
+                return "integer"
+            case "string": return "str"
+    }
+    }
+
+
 
