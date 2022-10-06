@@ -1,0 +1,10 @@
+import "cadl2Py";
+
+namespace python;
+
+@doc("a person")
+model Person {
+  name: string;
+  age: int8;
+}
+
