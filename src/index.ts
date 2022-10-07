@@ -37,7 +37,7 @@ import {
                 script+="\t"+value.name + ": "+getModelType(getIntrinsicModelName(program,value.type))+"\n";
                 console.log(getIntrinsicModelName(program,value.type))
             });
-            writeFile(path.join(apiPath, m.name+".python"), script);
+            writeFile(path.join(apiPath, m.name+".py"), script);
         }
         }
     })
