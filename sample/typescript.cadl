@@ -2,9 +2,17 @@ import "cadl2Py";
 
 namespace python;
 
-@doc("a person")
-model Person {
-  name: string;
-  age: int8;
+model Animal {
+  species: string;
+
 }
+
+model Pet {
+  name: string;
+}
+
+model Dog extends Animal {}
+
+op feedDog(name: string): void;
+
 

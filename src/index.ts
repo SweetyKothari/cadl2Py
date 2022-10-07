@@ -9,6 +9,7 @@ import {
     Type,
     ModelType,
     navigateProgram,
+    getOverloadedOperation,
   } from "@cadl-lang/compiler";
   
   import "./lib.js";
@@ -24,7 +25,7 @@ import {
     const e = createFunctionsEmitter(p, p.compilerOptions.outputPath);
     await e.emit();
   }
-
+  var globalStmt="from dataclasses import dataclass\n@dataclass\n"
   function createFunctionsEmitter(program: Program, basePath: string) {
     const apiPath = path.join(basePath, "");
     navigateProgram(program, {
@@ -32,14 +33,18 @@ import {
           if (m.namespace?.name === "Cadl") {
           }
           else{
-            var script="class "+m.name +":"+"\n";
+             script=globalStmt;
+             script+="class "+m.name +":"+"\n";
+            console.log(m.name)
             m.properties.forEach(function (value) {
-                script+="\t"+value.name + ": "+getModelType(getIntrinsicModelName(program,value.type))+"\n";
-                console.log(getIntrinsicModelName(program,value.type))
-            });
+              script+="\t"+value.name + ": "+getModelType(getIntrinsicModelName(program,value.type))+"\n";
+           });
+            if (m.baseModel) 
+            var script="class "+m.baseModel.name +"("+m.name+"):\n";
             writeFile(path.join(apiPath, m.name+".py"), script);
         }
         }
+        
     })
     
     return {
