@@ -1,17 +1,28 @@
 import "cadl2Py";
-
 namespace python;
-
 model Animal {
   species: string;
-
+  id: int8;
+  type : AnimalType;
 }
 
-model Pet {
+enum AnimalType{
+  Wild : "wild",
+  Pet: "pet"
+}
+
+model Pet extends Animal{
   name: string;
 }
 
-model Dog extends Animal {}
+model Wild extends Animal{
+  isExtinct: boolean;
+}
+
+model Dog {
+  ...Pet;
+  breed: string;
+}
 
 op feedDog(name: string): void;
 
